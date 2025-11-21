@@ -373,12 +373,49 @@ function validateLevel(filePath) {
     return !hasErrors;
 }
 
+function solveLevel(filePath) {
+    console.log(`\nSolving: ${filePath}`);
+    console.log('='.repeat(50));
+
+    let level;
+    try {
+        const content = fs.readFileSync(filePath, 'utf8');
+        level = JSON.parse(content);
+    } catch (e) {
+        console.log(`ERROR: Failed to read/parse file: ${e.message}`);
+        return false;
+    }
+
+    // First check basic winnability
+    const solution = findSolution(level);
+    if (!solution) {
+        console.log('\nNo solution found - level may be unwinnable');
+        return false;
+    }
+
+    console.log('\nSOLUTION FOUND!');
+    console.log('\nVehicle exit order:');
+    solution.forEach((id, i) => {
+        const vehicle = level.vehicles.find(v => v.id === id);
+        const dir = vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down');
+        console.log(`  ${i + 1}. ${id} (${vehicle.color}) - exits ${dir}`);
+    });
+
+    console.log('\nNote: This shows one possible exit order.');
+    console.log('In actual gameplay, you must also consider:');
+    console.log('  - Loading zone capacity (4 spots)');
+    console.log('  - Passenger queue order');
+
+    return true;
+}
+
 // Main
 const args = process.argv.slice(2);
 
 if (args.length === 0) {
     console.log('Usage: node validate-level.js [level-file.json]');
     console.log('       node validate-level.js --all');
+    console.log('       node validate-level.js --solve [level-file.json]');
     process.exit(1);
 }
 
@@ -395,6 +432,13 @@ if (args[0] === '--all') {
     console.log('\n' + '='.repeat(50));
     console.log(allPassed ? 'ALL LEVELS VALID' : 'SOME LEVELS HAVE ERRORS');
     process.exit(allPassed ? 0 : 1);
+} else if (args[0] === '--solve') {
+    if (!args[1]) {
+        console.log('Usage: node validate-level.js --solve [level-file.json]');
+        process.exit(1);
+    }
+    const solved = solveLevel(args[1]);
+    process.exit(solved ? 0 : 1);
 } else {
     const passed = validateLevel(args[0]);
     process.exit(passed ? 0 : 1);
