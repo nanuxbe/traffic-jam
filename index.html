@@ -172,7 +172,11 @@
                         const response = await fetch(`levels/level${levelNum}.json`);
                         this.levelData = await response.json();
                         this.gridSize = this.levelData.gridSize || 6;
-                        this.parkingLot = JSON.parse(JSON.stringify(this.levelData.vehicles));
+                        // Initialize shaking property for reactivity
+                        this.parkingLot = this.levelData.vehicles.map(v => ({
+                            ...v,
+                            shaking: false
+                        }));
                         this.passengerQueue = [...this.levelData.passengers];
                     } catch (error) {
                         console.error('Failed to load level:', error);
