@@ -273,12 +273,17 @@
                     const index = this.parkingLot.findIndex(v => v.id === vehicle.id);
                     if (index !== -1) {
                         const exitDir = vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down');
-                        // Set direction first, then trigger animation in next frame
+                        // Set direction first
                         this.parkingLot[index].exitDirection = exitDir;
-                        // Use requestAnimationFrame to ensure DOM is ready before animation
-                        requestAnimationFrame(() => {
-                            this.parkingLot[index].exiting = true;
-                        });
+                        // Use setTimeout to ensure DOM updates before adding animation class
+                        const self = this;
+                        setTimeout(() => {
+                            // Replace object to ensure Alpine detects the change
+                            self.parkingLot[index] = {
+                                ...self.parkingLot[index],
+                                exiting: true
+                            };
+                        }, 10);
                     }
 
                     // After exit animation, move to road
