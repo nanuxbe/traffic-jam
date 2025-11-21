@@ -336,6 +336,26 @@ header h1 {
     animation: driveDown 0.8s ease-out forwards;
 }
 
+/* Rotate horizontal vehicles to match road orientation */
+.vehicle.on-road.horizontal {
+    transform: rotate(90deg);
+}
+
+.vehicle.on-road.horizontal.size-2 {
+    width: 46px;
+    height: calc(100px + 2px);
+}
+
+.vehicle.on-road.horizontal.size-3 {
+    width: 46px;
+    height: calc(150px + 4px);
+}
+
+.vehicle.on-road.horizontal.size-4 {
+    width: 46px;
+    height: calc(200px + 6px);
+}
+
 .vehicle.on-road.entering {
     animation: driveDown 0.8s ease-out forwards;
 }
