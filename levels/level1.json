@@ -1,86 +1,36 @@
 {
   "gridSize": 8,
   "vehicles": [
-    {
-      "id": "red1",
-      "x": 1,
-      "y": 3,
-      "size": 1,
-      "orientation": "horizontal",
-      "direction": "right",
-      "color": "#e74c3c"
-    },
-    {
-      "id": "red2",
-      "x": 4,
-      "y": 5,
-      "size": 1,
-      "orientation": "horizontal",
-      "direction": "right",
-      "color": "#e74c3c"
-    },
-    {
-      "id": "blue1",
-      "x": 4,
-      "y": 2,
-      "size": 2,
-      "orientation": "vertical",
-      "direction": "down",
-      "color": "#3498db"
-    },
-    {
-      "id": "blue2",
-      "x": 0,
-      "y": 0,
-      "size": 1,
-      "orientation": "vertical",
-      "direction": "up",
-      "color": "#3498db"
-    },
-    {
-      "id": "green1",
-      "x": 5,
-      "y": 0,
-      "size": 1,
-      "orientation": "horizontal",
-      "direction": "right",
-      "color": "#27ae60"
-    },
-    {
-      "id": "green2",
-      "x": 2,
-      "y": 6,
-      "size": 2,
-      "orientation": "horizontal",
-      "direction": "left",
-      "color": "#27ae60"
-    },
-    {
-      "id": "yellow1",
-      "x": 0,
-      "y": 4,
-      "size": 2,
-      "orientation": "horizontal",
-      "direction": "left",
-      "color": "#f39c12"
-    },
-    {
-      "id": "yellow2",
-      "x": 6,
-      "y": 3,
-      "size": 1,
-      "orientation": "vertical",
-      "direction": "down",
-      "color": "#f39c12"
-    }
+    { "id": "red1", "x": 1, "y": 2, "size": 1, "orientation": "horizontal", "direction": "right", "color": "#e74c3c" },
+    { "id": "red2", "x": 4, "y": 5, "size": 1, "orientation": "horizontal", "direction": "right", "color": "#e74c3c" },
+    { "id": "red3", "x": 6, "y": 1, "size": 1, "orientation": "vertical", "direction": "down", "color": "#e74c3c" },
+    { "id": "red4", "x": 0, "y": 6, "size": 1, "orientation": "horizontal", "direction": "left", "color": "#e74c3c" },
+    { "id": "blue1", "x": 3, "y": 0, "size": 2, "orientation": "vertical", "direction": "up", "color": "#3498db" },
+    { "id": "blue2", "x": 0, "y": 3, "size": 2, "orientation": "horizontal", "direction": "left", "color": "#3498db" },
+    { "id": "blue3", "x": 5, "y": 3, "size": 2, "orientation": "vertical", "direction": "down", "color": "#3498db" },
+    { "id": "blue4", "x": 7, "y": 6, "size": 2, "orientation": "vertical", "direction": "down", "color": "#3498db" },
+    { "id": "green1", "x": 5, "y": 0, "size": 1, "orientation": "horizontal", "direction": "right", "color": "#27ae60" },
+    { "id": "green2", "x": 2, "y": 4, "size": 2, "orientation": "horizontal", "direction": "right", "color": "#27ae60" },
+    { "id": "green3", "x": 0, "y": 7, "size": 3, "orientation": "horizontal", "direction": "left", "color": "#27ae60" },
+    { "id": "green4", "x": 4, "y": 7, "size": 1, "orientation": "horizontal", "direction": "right", "color": "#27ae60" },
+    { "id": "yellow1", "x": 1, "y": 0, "size": 1, "orientation": "vertical", "direction": "up", "color": "#f39c12" },
+    { "id": "yellow2", "x": 6, "y": 5, "size": 1, "orientation": "horizontal", "direction": "right", "color": "#f39c12" },
+    { "id": "yellow3", "x": 2, "y": 6, "size": 1, "orientation": "vertical", "direction": "down", "color": "#f39c12" },
+    { "id": "yellow4", "x": 4, "y": 2, "size": 2, "orientation": "vertical", "direction": "down", "color": "#f39c12" }
   ],
   "passengers": [
-    "#3498db", "#3498db", "#3498db", "#3498db",
-    "#27ae60", "#27ae60", "#27ae60", "#27ae60",
-    "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c",
-    "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12",
+    "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c",
+    "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c",
+    "#3498db", "#3498db", "#3498db", "#3498db", "#3498db", "#3498db",
+    "#3498db", "#3498db", "#3498db", "#3498db", "#3498db", "#3498db",
+    "#3498db", "#3498db", "#3498db", "#3498db", "#3498db", "#3498db",
     "#3498db", "#3498db", "#3498db", "#3498db", "#3498db", "#3498db",
     "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60",
-    "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c"
+    "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60",
+    "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60",
+    "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60",
+    "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12",
+    "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12",
+    "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12", "#f39c12"
   ]
 }
