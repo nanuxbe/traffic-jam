@@ -270,11 +270,9 @@
                     // Start exit animation in parking lot
                     const index = this.parkingLot.findIndex(v => v.id === vehicle.id);
                     if (index !== -1) {
-                        this.parkingLot[index] = {
-                            ...this.parkingLot[index],
-                            exiting: true,
-                            exitDirection: vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down')
-                        };
+                        // Mutate directly to avoid DOM recreation
+                        this.parkingLot[index].exiting = true;
+                        this.parkingLot[index].exitDirection = vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down');
                     }
 
                     // After exit animation, move to road
