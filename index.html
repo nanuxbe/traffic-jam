@@ -51,7 +51,8 @@
                                 :class="[
                                     vehicle.orientation,
                                     `size-${vehicle.size}`,
-                                    { clickable: canExit(vehicle) }
+                                    `dir-${vehicle.direction || 'right'}`,
+                                    { clickable: canExit(vehicle), shaking: vehicle.shaking }
                                 ]"
                                 :style="{
                                     backgroundColor: vehicle.color,
@@ -179,32 +180,39 @@
                 },
 
                 canExit(vehicle) {
-                    // Check if vehicle has clear path to exit (right side of grid)
+                    // Check based on vehicle's exit direction
+                    const dir = vehicle.direction || 'right'; // default to right/down
+
                     if (vehicle.orientation === 'horizontal') {
-                        // Check if path to right is clear
-                        const vehicleEnd = vehicle.x + vehicle.size;
-                        for (let x = vehicleEnd; x < this.gridSize; x++) {
-                            if (this.isOccupied(x, vehicle.y, vehicle.id)) {
-                                return false;
+                        if (dir === 'right') {
+                            // Check path to right edge
+                            const vehicleEnd = vehicle.x + vehicle.size;
+                            for (let x = vehicleEnd; x < this.gridSize; x++) {
+                                if (this.isOccupied(x, vehicle.y, vehicle.id)) return false;
                             }
+                            return true;
+                        } else {
+                            // Check path to left edge
+                            for (let x = vehicle.x - 1; x >= 0; x--) {
+                                if (this.isOccupied(x, vehicle.y, vehicle.id)) return false;
+                            }
+                            return true;
                         }
-                        return true;
                     } else {
-                        // Vertical vehicles need to be in exit row and have clear path
-                        // For simplicity, vertical vehicles exit from the bottom
-                        const vehicleEnd = vehicle.y + vehicle.size;
-                        for (let y = vehicleEnd; y < this.gridSize; y++) {
-                            if (this.isOccupied(vehicle.x, y, vehicle.id)) {
-                                return false;
+                        if (dir === 'down') {
+                            // Check path to bottom edge
+                            const vehicleEnd = vehicle.y + vehicle.size;
+                            for (let y = vehicleEnd; y < this.gridSize; y++) {
+                                if (this.isOccupied(vehicle.x, y, vehicle.id)) return false;
                             }
-                        }
-                        // Then check if there's a clear horizontal path from bottom
-                        for (let x = vehicle.x + 1; x < this.gridSize; x++) {
-                            if (this.isOccupied(x, this.gridSize - 1, vehicle.id)) {
-                                return false;
+                            return true;
+                        } else {
+                            // Check path to top edge
+                            for (let y = vehicle.y - 1; y >= 0; y--) {
+                                if (this.isOccupied(vehicle.x, y, vehicle.id)) return false;
                             }
+                            return true;
                         }
-                        return true;
                     }
                 },
 
@@ -226,7 +234,14 @@
                 },
 
                 tryExit(vehicle) {
-                    if (!this.canExit(vehicle)) return;
+                    if (!this.canExit(vehicle)) {
+                        // Shake animation for blocked vehicle
+                        vehicle.shaking = true;
+                        setTimeout(() => {
+                            vehicle.shaking = false;
+                        }, 500);
+                        return;
+                    }
 
                     // Check if there's space in loading zone (not occupied or reserved)
                     const emptySpot = this.loadingSpots.findIndex(s => s.vehicle === null && !s.reserved);
