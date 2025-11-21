@@ -386,27 +386,105 @@ function solveLevel(filePath) {
         return false;
     }
 
-    // First check basic winnability
-    const solution = findSolution(level);
-    if (!solution) {
-        console.log('\nNo solution found - level may be unwinnable');
+    // First check basic physical winnability
+    const basicSolution = findSolution(level);
+    if (!basicSolution) {
+        console.log('\nNo solution found - vehicles cannot all exit');
         return false;
     }
 
-    console.log('\nSOLUTION FOUND!');
-    console.log('\nVehicle exit order:');
-    solution.forEach((id, i) => {
+    console.log('\nPhysical exit order found (ignoring queue):');
+    basicSolution.forEach((id, i) => {
         const vehicle = level.vehicles.find(v => v.id === id);
         const dir = vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down');
         console.log(`  ${i + 1}. ${id} (${vehicle.color}) - exits ${dir}`);
     });
 
-    console.log('\nNote: This shows one possible exit order.');
-    console.log('In actual gameplay, you must also consider:');
-    console.log('  - Loading zone capacity (4 spots)');
-    console.log('  - Passenger queue order');
+    // Now check with full game constraints
+    console.log('\nChecking with passenger queue constraints...');
+    const result = checkLoadingZoneWinnable(level);
 
-    return true;
+    if (result.success) {
+        console.log('\nFULL SOLUTION FOUND!');
+        console.log('\nPlayable exit order (with queue matching):');
+        result.order.forEach((id, i) => {
+            const vehicle = level.vehicles.find(v => v.id === id);
+            const dir = vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down');
+            console.log(`  ${i + 1}. ${id} (${vehicle.color}) - exits ${dir}`);
+        });
+        return true;
+    } else {
+        console.log('\nLevel is NOT winnable with current passenger queue!');
+        console.log('The passenger order prevents completing the level.');
+        console.log('\nUse --fix to generate a valid passenger queue.');
+        return false;
+    }
+}
+
+function fixLevel(filePath) {
+    console.log(`\nFixing: ${filePath}`);
+    console.log('='.repeat(50));
+
+    let level;
+    try {
+        const content = fs.readFileSync(filePath, 'utf8');
+        level = JSON.parse(content);
+    } catch (e) {
+        console.log(`ERROR: Failed to read/parse file: ${e.message}`);
+        return false;
+    }
+
+    // Find physical solution
+    const solution = findSolution(level);
+    if (!solution) {
+        console.log('\nNo solution found - vehicles cannot all exit');
+        return false;
+    }
+
+    // Generate passenger queue based on solution order
+    // Interleave passengers so vehicles can load as they exit
+    const passengers = [];
+    const vehiclesByColor = {};
+
+    // Group vehicles by color in solution order
+    for (const id of solution) {
+        const vehicle = level.vehicles.find(v => v.id === id);
+        if (!vehiclesByColor[vehicle.color]) {
+            vehiclesByColor[vehicle.color] = [];
+        }
+        vehiclesByColor[vehicle.color].push(vehicle);
+    }
+
+    // Generate interleaved queue - add passengers for each vehicle in exit order
+    for (const id of solution) {
+        const vehicle = level.vehicles.find(v => v.id === id);
+        const capacity = CAPACITIES[vehicle.size] || 4;
+
+        // Add this vehicle's passengers
+        for (let i = 0; i < capacity; i++) {
+            passengers.push(vehicle.color);
+        }
+    }
+
+    // Update level
+    level.passengers = passengers;
+
+    // Save
+    const json = JSON.stringify(level, null, 2);
+    fs.writeFileSync(filePath, json);
+
+    console.log('\nPassenger queue regenerated based on exit order!');
+    console.log(`Total passengers: ${passengers.length}`);
+
+    // Verify it works
+    const result = checkLoadingZoneWinnable(level);
+    if (result.success) {
+        console.log('\nLevel is now WINNABLE!');
+        return true;
+    } else {
+        console.log('\nWarning: Level still not winnable - may need manual adjustment');
+        return false;
+    }
 }
 
 // Main
@@ -416,6 +494,7 @@ if (args.length === 0) {
     console.log('Usage: node validate-level.js [level-file.json]');
     console.log('       node validate-level.js --all');
     console.log('       node validate-level.js --solve [level-file.json]');
+    console.log('       node validate-level.js --fix [level-file.json]');
     process.exit(1);
 }
 
@@ -439,6 +518,13 @@ if (args[0] === '--all') {
     }
     const solved = solveLevel(args[1]);
     process.exit(solved ? 0 : 1);
+} else if (args[0] === '--fix') {
+    if (!args[1]) {
+        console.log('Usage: node validate-level.js --fix [level-file.json]');
+        process.exit(1);
+    }
+    const fixed = fixLevel(args[1]);
+    process.exit(fixed ? 0 : 1);
 } else {
     const passed = validateLevel(args[0]);
     process.exit(passed ? 0 : 1);
