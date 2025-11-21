@@ -228,9 +228,12 @@
                 tryExit(vehicle) {
                     if (!this.canExit(vehicle)) return;
 
-                    // Check if there's space in loading zone
-                    const emptySpot = this.loadingSpots.findIndex(s => s.vehicle === null);
+                    // Check if there's space in loading zone (not occupied or reserved)
+                    const emptySpot = this.loadingSpots.findIndex(s => s.vehicle === null && !s.reserved);
                     if (emptySpot === -1) return;
+
+                    // Reserve the spot immediately
+                    this.loadingSpots[emptySpot].reserved = true;
 
                     // Remove from parking lot
                     this.parkingLot = this.parkingLot.filter(v => v.id !== vehicle.id);
@@ -253,6 +256,7 @@
                             capacity: this.getCapacity(vehicle.size)
                         };
                         this.loadingSpots[emptySpot].vehicle = loadingVehicle;
+                        this.loadingSpots[emptySpot].reserved = false;
 
                         // Start loading passengers
                         this.loadPassengers(emptySpot);
