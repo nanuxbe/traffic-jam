@@ -274,14 +274,12 @@
                             return;
                         }
 
-                        // Find matching passenger in queue
-                        const passengerIndex = this.passengerQueue.findIndex(
-                            p => p === spot.vehicle.color
-                        );
-
-                        if (passengerIndex !== -1 && spot.vehicle.passengers < spot.vehicle.capacity) {
-                            // Load passenger
-                            this.passengerQueue.splice(passengerIndex, 1);
+                        // Only load passenger from front of queue if color matches
+                        if (this.passengerQueue.length > 0 &&
+                            this.passengerQueue[0] === spot.vehicle.color &&
+                            spot.vehicle.passengers < spot.vehicle.capacity) {
+                            // Load passenger from front
+                            this.passengerQueue.shift();
                             spot.vehicle.passengers++;
                         }
 
