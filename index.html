@@ -307,9 +307,22 @@
                         if (this.passengerQueue.length > 0 &&
                             this.passengerQueue[0] === spot.vehicle.color &&
                             spot.vehicle.passengers < spot.vehicle.capacity) {
-                            // Load passenger from front
-                            this.passengerQueue.shift();
-                            spot.vehicle.passengers++;
+
+                            // Check if another vehicle of same color already has passengers
+                            // If so, that one should be filled first
+                            const otherVehicleLoading = this.loadingSpots.some((s, i) =>
+                                i !== spotIndex &&
+                                s.vehicle &&
+                                s.vehicle.color === spot.vehicle.color &&
+                                s.vehicle.passengers > 0 &&
+                                s.vehicle.passengers < s.vehicle.capacity
+                            );
+
+                            if (!otherVehicleLoading) {
+                                // Load passenger from front
+                                this.passengerQueue.shift();
+                                spot.vehicle.passengers++;
+                            }
                         }
 
                         // Check if vehicle is full
