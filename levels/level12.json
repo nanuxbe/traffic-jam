@@ -62,7 +62,7 @@
       "size": 2,
       "orientation": "horizontal",
       "direction": "right",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "cyan2",
@@ -71,7 +71,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "down",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "cyan3",
@@ -80,7 +80,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "up",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "yellow1",
@@ -143,7 +143,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "right",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "purple2",
@@ -183,12 +183,12 @@
     "#27ae60",
     "#27ae60",
     "#27ae60",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#f39c12",
     "#f39c12",
     "#f39c12",
@@ -213,12 +213,12 @@
     "#27ae60",
     "#27ae60",
     "#27ae60",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#f39c12",
     "#f39c12",
     "#f39c12",
@@ -239,12 +239,12 @@
     "#27ae60",
     "#27ae60",
     "#27ae60",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#f39c12",
     "#f39c12",
     "#f39c12",

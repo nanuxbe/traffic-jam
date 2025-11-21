@@ -125,7 +125,7 @@
       "size": 2,
       "orientation": "horizontal",
       "direction": "right",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "purple2",
@@ -173,12 +173,12 @@
     "#3498db",
     "#3498db",
     "#3498db",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#e74c3c",
     "#e74c3c",
     "#e74c3c",

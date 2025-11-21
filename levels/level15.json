@@ -17,7 +17,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "yellow1",
@@ -62,7 +62,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "cyan3",
@@ -71,7 +71,7 @@
       "size": 2,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "red2",
@@ -98,7 +98,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "up",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "cyan5",
@@ -107,7 +107,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "blue2",
@@ -125,7 +125,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "up",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "purple2",
@@ -169,10 +169,10 @@
     "#27ae60",
     "#27ae60",
     "#27ae60",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#f39c12",
     "#f39c12",
     "#f39c12",
@@ -191,12 +191,12 @@
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#f39c12",
     "#f39c12",
     "#f39c12",
@@ -215,10 +215,10 @@
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#f39c12",
     "#f39c12",
     "#f39c12",
@@ -237,12 +237,12 @@
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#e74c3c",
     "#e74c3c",
     "#3498db",
@@ -251,12 +251,12 @@
     "#3498db",
     "#3498db",
     "#3498db",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#3498db",
     "#3498db"
   ]

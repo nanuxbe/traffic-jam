@@ -17,7 +17,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "down",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "blue1",
@@ -205,10 +205,10 @@
     "#f39c12",
     "#f39c12",
     "#f39c12",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#3498db",
     "#3498db",
     "#3498db",

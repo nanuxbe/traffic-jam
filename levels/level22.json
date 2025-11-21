@@ -26,7 +26,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "up",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "yellow3",
@@ -98,7 +98,7 @@
       "size": 2,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "pink3",
@@ -189,12 +189,12 @@
     "#f39c12",
     "#f39c12",
     "#f39c12",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#e91e63",
     "#e91e63",
     "#e91e63",
@@ -225,10 +225,10 @@
     "#f39c12",
     "#f39c12",
     "#f39c12",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#e91e63",
     "#e91e63",
     "#e91e63",

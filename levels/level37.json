@@ -152,7 +152,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "blue2",
@@ -233,10 +233,10 @@
     "#3498db",
     "#3498db",
     "#3498db",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#f39c12",
     "#f39c12",
     "#f39c12",

@@ -116,7 +116,7 @@
       "size": 2,
       "orientation": "horizontal",
       "direction": "right",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "pink2",
@@ -205,12 +205,12 @@
     "#3498db",
     "#3498db",
     "#3498db",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#27ae60",
     "#27ae60",
     "#27ae60",

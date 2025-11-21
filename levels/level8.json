@@ -8,7 +8,7 @@
       "size": 2,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "cyan2",
@@ -17,7 +17,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#00bcd4"
+      "color": "#ff9800"
     },
     {
       "id": "green1",
@@ -147,12 +147,12 @@
     }
   ],
   "passengers": [
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#27ae60",
     "#27ae60",
     "#27ae60",
@@ -175,10 +175,10 @@
     "#e91e63",
     "#e91e63",
     "#e91e63",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
-    "#00bcd4",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
+    "#ff9800",
     "#27ae60",
     "#27ae60",
     "#27ae60",
