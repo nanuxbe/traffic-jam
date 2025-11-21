@@ -263,6 +263,12 @@ header h1 {
 }
 
 /* Vehicle sizes */
+.vehicle.size-1.horizontal,
+.vehicle.size-1.vertical {
+    width: 46px;
+    height: 46px;
+}
+
 .vehicle.size-2.horizontal {
     width: calc(100px + 2px);
     height: 46px;
@@ -270,11 +276,6 @@ header h1 {
 
 .vehicle.size-3.horizontal {
     width: calc(150px + 4px);
-    height: 46px;
-}
-
-.vehicle.size-4.horizontal {
-    width: calc(200px + 6px);
     height: 46px;
 }
 
@@ -288,9 +289,20 @@ header h1 {
     height: calc(150px + 4px);
 }
 
-.vehicle.size-4.vertical {
+/* Road sizes for rotated horizontal vehicles */
+.vehicle.on-road.horizontal.size-1 {
     width: 46px;
-    height: calc(200px + 6px);
+    height: 46px;
+}
+
+.vehicle.on-road.horizontal.size-2 {
+    width: 46px;
+    height: calc(100px + 2px);
+}
+
+.vehicle.on-road.horizontal.size-3 {
+    width: 46px;
+    height: calc(150px + 4px);
 }
 
 /* Exit Zone */

@@ -239,11 +239,17 @@
 
                 tryExit(vehicle) {
                     if (!this.canExit(vehicle)) {
-                        // Shake animation for blocked vehicle
-                        vehicle.shaking = true;
-                        setTimeout(() => {
-                            vehicle.shaking = false;
-                        }, 500);
+                        // Shake animation for blocked vehicle - force Alpine reactivity
+                        const index = this.parkingLot.findIndex(v => v.id === vehicle.id);
+                        if (index !== -1) {
+                            this.parkingLot[index] = { ...this.parkingLot[index], shaking: true };
+                            setTimeout(() => {
+                                const idx = this.parkingLot.findIndex(v => v.id === vehicle.id);
+                                if (idx !== -1) {
+                                    this.parkingLot[idx] = { ...this.parkingLot[idx], shaking: false };
+                                }
+                            }, 500);
+                        }
                         return;
                     }
 
@@ -283,7 +289,7 @@
                 },
 
                 getCapacity(size) {
-                    const capacities = { 2: 4, 3: 6, 4: 10 };
+                    const capacities = { 1: 4, 2: 6, 3: 10 };
                     return capacities[size] || 4;
                 },
 

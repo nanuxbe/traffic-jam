@@ -15,7 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const CAPACITIES = { 2: 4, 3: 6, 4: 10 };
+const CAPACITIES = { 1: 4, 2: 6, 3: 10 };
 
 function getVehicleCells(vehicle) {
     const cells = [];
