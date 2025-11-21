@@ -179,10 +179,12 @@
                         const response = await fetch(`levels/level${levelNum}.json`);
                         this.levelData = await response.json();
                         this.gridSize = this.levelData.gridSize || 6;
-                        // Initialize shaking property for reactivity
+                        // Initialize reactive properties
                         this.parkingLot = this.levelData.vehicles.map(v => ({
                             ...v,
-                            shaking: false
+                            shaking: false,
+                            exiting: false,
+                            exitDirection: null
                         }));
                         this.passengerQueue = [...this.levelData.passengers];
                     } catch (error) {
@@ -270,9 +272,13 @@
                     // Start exit animation in parking lot
                     const index = this.parkingLot.findIndex(v => v.id === vehicle.id);
                     if (index !== -1) {
-                        // Mutate directly to avoid DOM recreation
-                        this.parkingLot[index].exiting = true;
-                        this.parkingLot[index].exitDirection = vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down');
+                        const exitDir = vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down');
+                        // Set direction first, then trigger animation in next frame
+                        this.parkingLot[index].exitDirection = exitDir;
+                        // Use requestAnimationFrame to ensure DOM is ready before animation
+                        requestAnimationFrame(() => {
+                            this.parkingLot[index].exiting = true;
+                        });
                     }
 
                     // After exit animation, move to road
