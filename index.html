@@ -61,7 +61,12 @@
                                         'exit-down': vehicle.exiting && vehicle.exitDirection === 'down'
                                     }
                                 ]"
-                                :style="{
+                                :style="vehicle.exiting ? {
+                                    backgroundColor: vehicle.color,
+                                    position: 'absolute',
+                                    left: (vehicle.x * 52 + 2) + 'px',
+                                    top: (vehicle.y * 52 + 2) + 'px'
+                                } : {
                                     backgroundColor: vehicle.color,
                                     gridColumn: vehicle.orientation === 'horizontal'
                                         ? `${vehicle.x + 1} / span ${vehicle.size}`

@@ -169,14 +169,14 @@ header h1 {
     90% { transform: translateX(-4px) scale(1); }
 }
 
-/* Exit animations - use position relative to allow transforms in grid */
+/* Exit animations - switch to absolute positioning to escape grid */
 .vehicle.exit-right,
 .vehicle.exit-left,
 .vehicle.exit-down,
 .vehicle.exit-up {
-    position: relative;
     z-index: 100;
     pointer-events: none;
+    transition: none !important;
 }
 
 .vehicle.exit-right {
