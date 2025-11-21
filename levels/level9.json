@@ -8,7 +8,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "purple1",
@@ -98,7 +98,7 @@
       "size": 3,
       "orientation": "vertical",
       "direction": "up",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "blue3",
@@ -147,12 +147,12 @@
     }
   ],
   "passengers": [
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
@@ -183,10 +183,10 @@
     "#e91e63",
     "#e91e63",
     "#e91e63",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
@@ -215,10 +215,10 @@
     "#e91e63",
     "#e91e63",
     "#e91e63",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",

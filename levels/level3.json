@@ -98,7 +98,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "left",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "yellow2",
@@ -107,7 +107,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "down",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "yellow3",
@@ -116,7 +116,7 @@
       "size": 1,
       "orientation": "horizontal",
       "direction": "right",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "purple1",
@@ -259,14 +259,14 @@
     "#27ae60",
     "#27ae60",
     "#27ae60",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#3498db",
     "#3498db",
     "#3498db",
@@ -281,10 +281,10 @@
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",

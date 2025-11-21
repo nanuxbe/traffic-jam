@@ -8,7 +8,7 @@
       "size": 2,
       "orientation": "vertical",
       "direction": "down",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "purple1",
@@ -89,7 +89,7 @@
       "size": 3,
       "orientation": "horizontal",
       "direction": "right",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "green3",
@@ -116,7 +116,7 @@
       "size": 2,
       "orientation": "horizontal",
       "direction": "right",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "purple3",
@@ -134,7 +134,7 @@
       "size": 2,
       "orientation": "vertical",
       "direction": "up",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "cyan1",
@@ -188,7 +188,7 @@
       "size": 1,
       "orientation": "vertical",
       "direction": "up",
-      "color": "#f39c12"
+      "color": "#ffeb3b"
     },
     {
       "id": "pink2",
@@ -201,10 +201,10 @@
     }
   ],
   "passengers": [
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
@@ -233,10 +233,10 @@
     "#ff9800",
     "#ff9800",
     "#ff9800",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
@@ -261,10 +261,10 @@
     "#ff9800",
     "#ff9800",
     "#ff9800",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#9b59b6",
@@ -285,12 +285,12 @@
     "#ff9800",
     "#ff9800",
     "#ff9800",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#9b59b6",
     "#9b59b6",
     "#27ae60",
@@ -299,21 +299,21 @@
     "#27ae60",
     "#27ae60",
     "#27ae60",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
     "#27ae60",
     "#27ae60",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12",
-    "#f39c12"
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b",
+    "#ffeb3b"
   ]
 }
