@@ -4,7 +4,7 @@
     {
       "id": "red1",
       "x": 1,
-      "y": 3,
+      "y": 4,
       "size": 2,
       "orientation": "horizontal",
       "direction": "right",
@@ -40,7 +40,7 @@
     {
       "id": "green1",
       "x": 0,
-      "y": 5,
+      "y": 7,
       "size": 3,
       "orientation": "horizontal",
       "direction": "left",
