@@ -199,6 +199,114 @@ function findSolution(level) {
     return null; // No solution found
 }
 
+function checkLoadingZoneWinnable(level) {
+    // Simulate actual game with:
+    // - 4 loading spots
+    // - Passengers loaded from front of queue only
+    // - Vehicles only load matching color passengers
+
+    const LOADING_SPOTS = 4;
+    const errors = [];
+
+    // BFS with game state
+    const initialState = {
+        vehicles: [...level.vehicles],
+        passengers: [...level.passengers],
+        loadingZone: [], // vehicles currently loading
+        order: []
+    };
+
+    const queue = [initialState];
+    const visited = new Set();
+
+    while (queue.length > 0) {
+        const state = queue.shift();
+
+        // Win condition: all passengers loaded
+        if (state.passengers.length === 0 && state.loadingZone.length === 0) {
+            return { success: true, order: state.order };
+        }
+
+        // Create state key
+        const vehicleIds = state.vehicles.map(v => v.id).sort().join(',');
+        const loadingIds = state.loadingZone.map(v => v.id).sort().join(',');
+        const passCount = state.passengers.length;
+        const stateKey = `${vehicleIds}|${loadingIds}|${passCount}`;
+
+        if (visited.has(stateKey)) continue;
+        visited.add(stateKey);
+
+        // Try to complete loading for vehicles in loading zone
+        let newLoadingZone = [...state.loadingZone];
+        let newPassengers = [...state.passengers];
+        let changed = true;
+
+        while (changed) {
+            changed = false;
+            for (let i = newLoadingZone.length - 1; i >= 0; i--) {
+                const vehicle = newLoadingZone[i];
+                const capacity = CAPACITIES[vehicle.size] || 4;
+                let loaded = vehicle.loaded || 0;
+
+                // Try to load passengers from front of queue
+                while (loaded < capacity && newPassengers.length > 0 && newPassengers[0] === vehicle.color) {
+                    newPassengers.shift();
+                    loaded++;
+                    changed = true;
+                }
+
+                // If vehicle is full, it leaves
+                if (loaded >= capacity) {
+                    newLoadingZone.splice(i, 1);
+                    changed = true;
+                } else {
+                    newLoadingZone[i] = { ...vehicle, loaded };
+                }
+            }
+        }
+
+        // If loading zone is full and no vehicle can load, we might be stuck
+        if (newLoadingZone.length >= LOADING_SPOTS) {
+            // Check if any vehicle in loading zone can still load
+            const frontPassenger = newPassengers[0];
+            const canLoad = newLoadingZone.some(v => v.color === frontPassenger && (v.loaded || 0) < (CAPACITIES[v.size] || 4));
+            if (!canLoad && newPassengers.length > 0) {
+                continue; // This state is stuck, skip it
+            }
+        }
+
+        // Try moving each vehicle that can exit (if there's room in loading zone)
+        if (newLoadingZone.length < LOADING_SPOTS) {
+            for (let i = 0; i < state.vehicles.length; i++) {
+                const vehicle = state.vehicles[i];
+                if (canVehicleExit(vehicle, state.vehicles, level.gridSize)) {
+                    const newVehicles = [...state.vehicles];
+                    newVehicles.splice(i, 1);
+
+                    queue.push({
+                        vehicles: newVehicles,
+                        passengers: [...newPassengers],
+                        loadingZone: [...newLoadingZone, { ...vehicle, loaded: 0 }],
+                        order: [...state.order, vehicle.id]
+                    });
+                }
+            }
+        }
+
+        // Also try just waiting (advancing the loading state without moving new vehicles)
+        if (newLoadingZone.length !== state.loadingZone.length || newPassengers.length !== state.passengers.length) {
+            queue.push({
+                vehicles: [...state.vehicles],
+                passengers: newPassengers,
+                loadingZone: newLoadingZone,
+                order: [...state.order]
+            });
+        }
+    }
+
+    return { success: false, error: 'Level cannot be completed with loading zone constraint (4 spots, front-of-queue loading)' };
+}
+
 function validateLevel(filePath) {
     console.log(`\nValidating: ${filePath}`);
     console.log('='.repeat(50));
@@ -241,6 +349,16 @@ function validateLevel(filePath) {
         console.log('\nWARNINGS:');
         warnings.forEach(w => console.log(`  - ${w}`));
     }
+
+    // Check loading zone winnability (actual game constraints)
+    // Note: This check is computationally expensive for large levels
+    // Uncomment when levels are simpler or solver is optimized
+    // const loadingResult = checkLoadingZoneWinnable(level);
+    // if (!loadingResult.success) {
+    //     console.log('\nLOADING ZONE ERRORS:');
+    //     console.log(`  - ${loadingResult.error}`);
+    //     hasErrors = true;
+    // }
 
     if (!hasErrors) {
         console.log('\nVALIDATION PASSED');
