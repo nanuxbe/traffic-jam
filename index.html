@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Jam - Passenger Loading Game</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game" x-data="trafficJamGame()" x-init="init()">
+        <header>
+            <h1>Traffic Jam</h1>
+            <div class="level-selector">
+                <button @click="loadLevel(1)" :class="{ active: currentLevel === 1 }">Level 1</button>
+                <button @click="loadLevel(2)" :class="{ active: currentLevel === 2 }">Level 2</button>
+                <button @click="loadLevel(3)" :class="{ active: currentLevel === 3 }">Level 3</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Passenger Queue -->
+            <div class="queue-section">
+                <h2>Passengers Waiting</h2>
+                <div class="passenger-queue">
+                    <template x-for="(passenger, index) in visibleQueue" :key="index">
+                        <div class="passenger" :style="{ backgroundColor: passenger }"></div>
+                    </template>
+                    <span x-show="passengerQueue.length > 20" class="more-indicator">
+                        +<span x-text="passengerQueue.length - 20"></span> more
+                    </span>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <!-- Parking Lot -->
+                <div class="parking-lot">
+                    <h3>Parking Lot</h3>
+                    <div class="grid" :style="{
+                        gridTemplateColumns: `repeat(${gridSize}, 50px)`,
+                        gridTemplateRows: `repeat(${gridSize}, 50px)`
+                    }">
+                        <!-- Grid cells background -->
+                        <template x-for="i in gridSize * gridSize" :key="'cell-' + i">
+                            <div class="grid-cell"></div>
+                        </template>
+
+                        <!-- Vehicles -->
+                        <template x-for="vehicle in parkingLot" :key="vehicle.id">
+                            <div class="vehicle"
+                                :class="[
+                                    vehicle.orientation,
+                                    `size-${vehicle.size}`,
+                                    { clickable: canExit(vehicle) }
+                                ]"
+                                :style="{
+                                    backgroundColor: vehicle.color,
+                                    gridColumn: vehicle.orientation === 'horizontal'
+                                        ? `${vehicle.x + 1} / span ${vehicle.size}`
+                                        : `${vehicle.x + 1}`,
+                                    gridRow: vehicle.orientation === 'vertical'
+                                        ? `${vehicle.y + 1} / span ${vehicle.size}`
+                                        : `${vehicle.y + 1}`
+                                }"
+                                @click="tryExit(vehicle)">
+                                <div class="vehicle-body">
+                                    <div class="vehicle-front"></div>
+                                    <div class="vehicle-windows"></div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Exit indicator -->
+                    <div class="exit-zone">
+                        <span>EXIT →</span>
+                    </div>
+                </div>
+
+                <!-- Road -->
+                <div class="road">
+                    <div class="road-markings"></div>
+                    <template x-for="vehicle in roadVehicles" :key="'road-' + vehicle.id">
+                        <div class="vehicle on-road"
+                            :class="[vehicle.orientation, `size-${vehicle.size}`, vehicle.roadState]"
+                            :style="{ backgroundColor: vehicle.color }">
+                            <div class="vehicle-body">
+                                <div class="vehicle-front"></div>
+                                <div class="vehicle-windows"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Loading Zone -->
+                <div class="loading-zone">
+                    <h3>Loading Zone</h3>
+                    <div class="loading-spots">
+                        <template x-for="(spot, index) in loadingSpots" :key="'spot-' + index">
+                            <div class="loading-spot" :class="{ occupied: spot.vehicle }">
+                                <template x-if="spot.vehicle">
+                                    <div class="vehicle in-loading"
+                                        :class="`size-${spot.vehicle.size}`"
+                                        :style="{ backgroundColor: spot.vehicle.color }">
+                                        <div class="vehicle-body">
+                                            <div class="vehicle-front"></div>
+                                            <div class="vehicle-windows"></div>
+                                        </div>
+                                        <div class="passenger-count">
+                                            <span x-text="spot.vehicle.passengers"></span>/<span x-text="spot.vehicle.capacity"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template x-if="!spot.vehicle">
+                                    <div class="empty-spot">Empty</div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Win Modal -->
+        <div class="modal" x-show="gameWon" x-transition>
+            <div class="modal-content">
+                <h2>Level Complete!</h2>
+                <p>All passengers have been loaded!</p>
+                <button @click="nextLevel()">Next Level</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function trafficJamGame() {
+            return {
+                currentLevel: 1,
+                gridSize: 6,
+                parkingLot: [],
+                roadVehicles: [],
+                loadingSpots: [
+                    { vehicle: null },
+                    { vehicle: null },
+                    { vehicle: null },
+                    { vehicle: null }
+                ],
+                passengerQueue: [],
+                gameWon: false,
+                levelData: null,
+
+                get visibleQueue() {
+                    return this.passengerQueue.slice(0, 20);
+                },
+
+                async init() {
+                    await this.loadLevel(1);
+                },
+
+                async loadLevel(levelNum) {
+                    this.currentLevel = levelNum;
+                    this.gameWon = false;
+                    this.roadVehicles = [];
+                    this.loadingSpots = [
+                        { vehicle: null },
+                        { vehicle: null },
+                        { vehicle: null },
+                        { vehicle: null }
+                    ];
+
+                    try {
+                        const response = await fetch(`levels/level${levelNum}.json`);
+                        this.levelData = await response.json();
+                        this.gridSize = this.levelData.gridSize || 6;
+                        this.parkingLot = JSON.parse(JSON.stringify(this.levelData.vehicles));
+                        this.passengerQueue = [...this.levelData.passengers];
+                    } catch (error) {
+                        console.error('Failed to load level:', error);
+                    }
+                },
+
+                canExit(vehicle) {
+                    // Check if vehicle has clear path to exit (right side of grid)
+                    if (vehicle.orientation === 'horizontal') {
+                        // Check if path to right is clear
+                        const vehicleEnd = vehicle.x + vehicle.size;
+                        for (let x = vehicleEnd; x < this.gridSize; x++) {
+                            if (this.isOccupied(x, vehicle.y, vehicle.id)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    } else {
+                        // Vertical vehicles need to be in exit row and have clear path
+                        // For simplicity, vertical vehicles exit from the bottom
+                        const vehicleEnd = vehicle.y + vehicle.size;
+                        for (let y = vehicleEnd; y < this.gridSize; y++) {
+                            if (this.isOccupied(vehicle.x, y, vehicle.id)) {
+                                return false;
+                            }
+                        }
+                        // Then check if there's a clear horizontal path from bottom
+                        for (let x = vehicle.x + 1; x < this.gridSize; x++) {
+                            if (this.isOccupied(x, this.gridSize - 1, vehicle.id)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                },
+
+                isOccupied(x, y, excludeId = null) {
+                    for (const v of this.parkingLot) {
+                        if (v.id === excludeId) continue;
+
+                        if (v.orientation === 'horizontal') {
+                            if (y === v.y && x >= v.x && x < v.x + v.size) {
+                                return true;
+                            }
+                        } else {
+                            if (x === v.x && y >= v.y && y < v.y + v.size) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                },
+
+                tryExit(vehicle) {
+                    if (!this.canExit(vehicle)) return;
+
+                    // Check if there's space in loading zone
+                    const emptySpot = this.loadingSpots.findIndex(s => s.vehicle === null);
+                    if (emptySpot === -1) return;
+
+                    // Remove from parking lot
+                    this.parkingLot = this.parkingLot.filter(v => v.id !== vehicle.id);
+
+                    // Add to road with animation
+                    const roadVehicle = {
+                        ...vehicle,
+                        roadState: 'entering',
+                        targetSpot: emptySpot
+                    };
+                    this.roadVehicles.push(roadVehicle);
+
+                    // Animate to loading zone
+                    setTimeout(() => {
+                        this.roadVehicles = this.roadVehicles.filter(v => v.id !== vehicle.id);
+
+                        const loadingVehicle = {
+                            ...vehicle,
+                            passengers: 0,
+                            capacity: this.getCapacity(vehicle.size)
+                        };
+                        this.loadingSpots[emptySpot].vehicle = loadingVehicle;
+
+                        // Start loading passengers
+                        this.loadPassengers(emptySpot);
+                    }, 800);
+                },
+
+                getCapacity(size) {
+                    const capacities = { 2: 4, 3: 6, 4: 10 };
+                    return capacities[size] || 4;
+                },
+
+                loadPassengers(spotIndex) {
+                    const spot = this.loadingSpots[spotIndex];
+                    if (!spot.vehicle) return;
+
+                    const loadInterval = setInterval(() => {
+                        if (!spot.vehicle) {
+                            clearInterval(loadInterval);
+                            return;
+                        }
+
+                        // Find matching passenger in queue
+                        const passengerIndex = this.passengerQueue.findIndex(
+                            p => p === spot.vehicle.color
+                        );
+
+                        if (passengerIndex !== -1 && spot.vehicle.passengers < spot.vehicle.capacity) {
+                            // Load passenger
+                            this.passengerQueue.splice(passengerIndex, 1);
+                            spot.vehicle.passengers++;
+                        }
+
+                        // Check if vehicle is full
+                        if (spot.vehicle.passengers >= spot.vehicle.capacity) {
+                            clearInterval(loadInterval);
+
+                            // Vehicle leaves
+                            setTimeout(() => {
+                                const leavingVehicle = { ...spot.vehicle, roadState: 'leaving' };
+                                this.roadVehicles.push(leavingVehicle);
+                                spot.vehicle = null;
+
+                                setTimeout(() => {
+                                    this.roadVehicles = this.roadVehicles.filter(
+                                        v => v.id !== leavingVehicle.id
+                                    );
+                                    this.checkWin();
+                                }, 800);
+                            }, 300);
+                        }
+                    }, 300);
+                },
+
+                checkWin() {
+                    if (this.passengerQueue.length === 0 &&
+                        this.parkingLot.length === 0 &&
+                        this.loadingSpots.every(s => s.vehicle === null) &&
+                        this.roadVehicles.length === 0) {
+                        this.gameWon = true;
+                    }
+                },
+
+                nextLevel() {
+                    const next = this.currentLevel < 3 ? this.currentLevel + 1 : 1;
+                    this.loadLevel(next);
+                }
+            };
+        }
+    </script>
+</body>
+</html>

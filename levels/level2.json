@@ -1,0 +1,52 @@
+{
+  "gridSize": 6,
+  "vehicles": [
+    {
+      "id": "red1",
+      "x": 0,
+      "y": 2,
+      "size": 2,
+      "orientation": "horizontal",
+      "color": "#e74c3c"
+    },
+    {
+      "id": "blue1",
+      "x": 2,
+      "y": 0,
+      "size": 3,
+      "orientation": "vertical",
+      "color": "#3498db"
+    },
+    {
+      "id": "yellow1",
+      "x": 3,
+      "y": 2,
+      "size": 2,
+      "orientation": "vertical",
+      "color": "#f39c12"
+    },
+    {
+      "id": "purple1",
+      "x": 4,
+      "y": 1,
+      "size": 2,
+      "orientation": "horizontal",
+      "color": "#9b59b6"
+    },
+    {
+      "id": "green1",
+      "x": 0,
+      "y": 4,
+      "size": 4,
+      "orientation": "horizontal",
+      "color": "#27ae60"
+    }
+  ],
+  "passengers": [
+    "#e74c3c", "#e74c3c", "#e74c3c", "#e74c3c",
+    "#3498db", "#3498db", "#3498db", "#3498db", "#3498db", "#3498db",
+    "#f39c12", "#f39c12", "#f39c12", "#f39c12",
+    "#9b59b6", "#9b59b6", "#9b59b6", "#9b59b6",
+    "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60", "#27ae60"
+  ]
+}
