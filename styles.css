@@ -30,14 +30,18 @@ header h1 {
 
 .level-selector {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .level-selector button {
-    padding: 10px 20px;
+    padding: 8px 12px;
     border: 2px solid #4a4a6a;
     background: #2a2a4a;
+    min-width: 40px;
     color: #fff;
     border-radius: 8px;
     cursor: pointer;

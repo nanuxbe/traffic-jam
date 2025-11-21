@@ -12,9 +12,9 @@
         <header>
             <h1>Traffic Jam</h1>
             <div class="level-selector">
-                <button @click="loadLevel(1)" :class="{ active: currentLevel === 1 }">Level 1</button>
-                <button @click="loadLevel(2)" :class="{ active: currentLevel === 2 }">Level 2</button>
-                <button @click="loadLevel(3)" :class="{ active: currentLevel === 3 }">Level 3</button>
+                <template x-for="level in 50" :key="level">
+                    <button @click="loadLevel(level)" :class="{ active: currentLevel === level }" x-text="level"></button>
+                </template>
             </div>
         </header>
 
@@ -385,7 +385,7 @@
                 },
 
                 nextLevel() {
-                    const next = this.currentLevel < 3 ? this.currentLevel + 1 : 1;
+                    const next = this.currentLevel < 50 ? this.currentLevel + 1 : 1;
                     this.loadLevel(next);
                 }
             };
