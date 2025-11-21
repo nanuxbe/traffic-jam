@@ -52,7 +52,14 @@
                                     vehicle.orientation,
                                     `size-${vehicle.size}`,
                                     `dir-${vehicle.direction || 'right'}`,
-                                    { clickable: canExit(vehicle), shaking: vehicle.shaking }
+                                    {
+                                        clickable: canExit(vehicle) && !vehicle.exiting,
+                                        shaking: vehicle.shaking,
+                                        'exit-left': vehicle.exiting && vehicle.exitDirection === 'left',
+                                        'exit-right': vehicle.exiting && vehicle.exitDirection === 'right',
+                                        'exit-up': vehicle.exiting && vehicle.exitDirection === 'up',
+                                        'exit-down': vehicle.exiting && vehicle.exitDirection === 'down'
+                                    }
                                 ]"
                                 :style="{
                                     backgroundColor: vehicle.color,
@@ -260,32 +267,45 @@
                     // Reserve the spot immediately
                     this.loadingSpots[emptySpot].reserved = true;
 
-                    // Remove from parking lot
-                    this.parkingLot = this.parkingLot.filter(v => v.id !== vehicle.id);
-
-                    // Add to road with animation
-                    const roadVehicle = {
-                        ...vehicle,
-                        roadState: 'entering',
-                        targetSpot: emptySpot
-                    };
-                    this.roadVehicles.push(roadVehicle);
-
-                    // Animate to loading zone
-                    setTimeout(() => {
-                        this.roadVehicles = this.roadVehicles.filter(v => v.id !== vehicle.id);
-
-                        const loadingVehicle = {
-                            ...vehicle,
-                            passengers: 0,
-                            capacity: this.getCapacity(vehicle.size)
+                    // Start exit animation in parking lot
+                    const index = this.parkingLot.findIndex(v => v.id === vehicle.id);
+                    if (index !== -1) {
+                        this.parkingLot[index] = {
+                            ...this.parkingLot[index],
+                            exiting: true,
+                            exitDirection: vehicle.direction || (vehicle.orientation === 'horizontal' ? 'right' : 'down')
                         };
-                        this.loadingSpots[emptySpot].vehicle = loadingVehicle;
-                        this.loadingSpots[emptySpot].reserved = false;
+                    }
 
-                        // Start loading passengers
-                        this.loadPassengers(emptySpot);
-                    }, 800);
+                    // After exit animation, move to road
+                    setTimeout(() => {
+                        // Remove from parking lot
+                        this.parkingLot = this.parkingLot.filter(v => v.id !== vehicle.id);
+
+                        // Add to road with animation
+                        const roadVehicle = {
+                            ...vehicle,
+                            roadState: 'entering',
+                            targetSpot: emptySpot
+                        };
+                        this.roadVehicles.push(roadVehicle);
+
+                        // Animate to loading zone
+                        setTimeout(() => {
+                            this.roadVehicles = this.roadVehicles.filter(v => v.id !== vehicle.id);
+
+                            const loadingVehicle = {
+                                ...vehicle,
+                                passengers: 0,
+                                capacity: this.getCapacity(vehicle.size)
+                            };
+                            this.loadingSpots[emptySpot].vehicle = loadingVehicle;
+                            this.loadingSpots[emptySpot].reserved = false;
+
+                            // Start loading passengers
+                            this.loadPassengers(emptySpot);
+                        }, 800);
+                    }, 400);
                 },
 
                 getCapacity(size) {

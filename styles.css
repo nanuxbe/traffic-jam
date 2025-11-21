@@ -167,6 +167,43 @@ header h1 {
     90% { transform: translateX(-4px) scale(1); }
 }
 
+/* Exit animations */
+.vehicle.exit-right {
+    animation: exitRight 0.4s ease-in forwards;
+}
+
+.vehicle.exit-left {
+    animation: exitLeft 0.4s ease-in forwards;
+}
+
+.vehicle.exit-down {
+    animation: exitDown 0.4s ease-in forwards;
+}
+
+.vehicle.exit-up {
+    animation: exitUp 0.4s ease-in forwards;
+}
+
+@keyframes exitRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100px); opacity: 0; }
+}
+
+@keyframes exitLeft {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-100px); opacity: 0; }
+}
+
+@keyframes exitDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100px); opacity: 0; }
+}
+
+@keyframes exitUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100px); opacity: 0; }
+}
+
 /* Make all vehicles clickable */
 .grid .vehicle {
     cursor: pointer;
