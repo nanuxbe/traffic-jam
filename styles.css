@@ -154,15 +154,22 @@ header h1 {
 
 /* Shake animation for blocked vehicles */
 .vehicle.shaking {
-    animation: shake 0.5s ease-in-out;
+    animation: shake 0.5s ease-in-out !important;
+    cursor: not-allowed;
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-5px); }
-    40% { transform: translateX(5px); }
-    60% { transform: translateX(-5px); }
-    80% { transform: translateX(5px); }
+    0%, 100% { transform: translateX(0) scale(1); }
+    10% { transform: translateX(-8px) scale(1); }
+    30% { transform: translateX(8px) scale(1); }
+    50% { transform: translateX(-8px) scale(1); }
+    70% { transform: translateX(8px) scale(1); }
+    90% { transform: translateX(-4px) scale(1); }
+}
+
+/* Make all vehicles clickable */
+.grid .vehicle {
+    cursor: pointer;
 }
 
 /* Vehicle body styling */
